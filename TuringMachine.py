@@ -14,6 +14,7 @@
     Updated November 15, 2020
 """
 
+
 class TuringMachine(object):
     """
         This class generates a deterministic Turing Machine
@@ -23,24 +24,24 @@ class TuringMachine(object):
         # Machine states
         self.states = {
             "q0": {
-                "a": ["a", "q0", "R"],
+                "a": ["q0", "a", "R"],
                 "b": [],
-                "3": ["b", "q1", "R"],
-                "4": ["5", "q2", "R"],
+                "3": ["q1", "b", "R"],
+                "4": ["q2", "5", "R"],
                 "5": [],
                 },
             "q1": {
-                "a": ["a", "q2", "L"],
+                "a": ["q2", "a", "L"],
                 "b": [],
-                "3": ["a", "q1", "R"],
+                "3": ["q1", "a", "R"],
                 "4": [],
-                "5": ["a", "qreject", "R"],
+                "5": ["qreject", "a", "R"],
                 },
             "q2": {
-                "a": ["a", "q1", "R"],
-                "b": ["5", "q2", "R"],
+                "a": ["q1", "a",  "R"],
+                "b": ["q2", "5", "R"],
                 "3": [],
-                "4": ["b", "qaccept", "R"],
+                "4": ["qaccept", "b", "R"],
                 "5": [],
                 },
         }
@@ -109,8 +110,8 @@ class TuringMachine(object):
                 (self.maximum_depth > self.current_depth) and len(self.operating_characters) > 0:
 
             operation_list = self.states[self.current_state][self.current_character]
-            new_character = operation_list[0]
-            new_state = operation_list[1]
+            new_state = operation_list[0]
+            new_character = operation_list[1]
             rotation = operation_list[2]
 
             if rotation == "R":
