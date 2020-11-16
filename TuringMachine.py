@@ -192,5 +192,5 @@ class TuringMachine(object):
 
         # Generates the output file
         file_output = ""
-        output.write(file_output.join(self.operating_characters) + "\n")
+        output.write("Final state: " + file_output.join(self.operating_characters) + "\n")
 

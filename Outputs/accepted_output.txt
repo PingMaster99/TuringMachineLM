@@ -2,4 +2,4 @@
 2. cdq2bd
 3. cddq2d
 4. cddbqaccept
-cddbqaccept
+Final state: cddbqaccept

@@ -98,5 +98,5 @@
 98. baq1abaa
 99. bq2aabaa
 100. baq1abaa
-baq1abaa
+Final state: baq1abaa
 (Infinite loop)

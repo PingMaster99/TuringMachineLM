@@ -3,4 +3,4 @@
 3. cddq2ad
 4. cddaq1d
 5. cddaaqreject
-cddaaqreject
+Final state: cddaaqreject
