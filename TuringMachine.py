@@ -24,25 +24,25 @@ class TuringMachine(object):
         # Machine states
         self.states = {
             "q0": {
-                "a": ["q0", "a", "R"],
-                "b": [],
-                "3": ["q1", "b", "R"],
-                "4": ["q2", "5", "R"],
-                "5": [],
+                "a": ["q0", "d", "L"],
+                "b": ["q2", "c", "R"],
+                "c": ["q1", "b", "R"],
+                "d": ["q2", "c", "R"],
+                "_": ["", "", ""]
                 },
             "q1": {
                 "a": ["q2", "a", "L"],
-                "b": [],
-                "3": ["q1", "a", "R"],
-                "4": [],
-                "5": ["qreject", "a", "R"],
+                "b": ["q1", "a", "R"],
+                "c": ["q1", "a", "R"],
+                "d": ["qreject", "a", "R"],
+                "_": ["qreject", "a", "R"]
                 },
             "q2": {
                 "a": ["q1", "a",  "R"],
-                "b": ["q2", "5", "R"],
-                "3": [],
-                "4": ["qaccept", "b", "R"],
-                "5": [],
+                "b": ["q2", "d", "R"],
+                "c": ["qreject", "c", "L"],
+                "d": ["qaccept", "b", "R"],
+                "_": ["qreject", "_", "L"]
                 },
         }
 
@@ -51,7 +51,8 @@ class TuringMachine(object):
         self.current_character = None
 
         # Accepted symbols and operating characters to calculate
-        self.accepted_symbols = ["a", "b", "3", "4", "5"]
+        self.accepted_symbols = ["a", "b", "c", "d"]
+        #self.accepted_symbols = ["a", "b", "3", "4", "5"]
         self.operating_characters = []
         self.generate_operating_characters(input_file)
 
