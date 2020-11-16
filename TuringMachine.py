@@ -57,6 +57,8 @@ class TuringMachine(object):
                 self.accepted_symbols = line.strip("\n").split(" ")
                 start = False
                 continue
+            if line[0] == "\n":
+                continue
 
             line = line.strip("\n").split(" ")
             state = line[0]
