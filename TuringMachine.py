@@ -160,7 +160,6 @@ class TuringMachine(object):
             else:
                 print(str(self.current_depth) + ".", current_progress.join(self.operating_characters)[0:len(current_progress.join(self.operating_characters)) - 1])
 
-
         if remove_blank_space and self.operating_characters[len(self.operating_characters) - 1] == "_":
             self.operating_characters.pop()
 
