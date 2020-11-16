@@ -104,9 +104,15 @@ class TuringMachine(object):
 
     def calculate(self, output_file="output.txt"):
 
+        # Additional blank spaces at the end of the strip
+        remove_blank_space = False
+
+        # Initial state
+        current_progress = ""
+        print(str(self.current_depth) + ".", current_progress.join(self.operating_characters))
+
         # The machine will only calculate if it's not in an acceptation state or a rejection state and the maximum
         # recursion depth has not been reached. It won't calculate if the input string has invalid characters.
-        remove_blank_space = False
         while self.current_state != "qaccept" and self.current_state != "qreject" and \
                 (self.maximum_depth > self.current_depth) and len(self.operating_characters) > 0:
 
