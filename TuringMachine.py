@@ -113,6 +113,7 @@ class TuringMachine(object):
             self.current_character = self.operating_characters[1]
 
     def calculate(self, output_file="output.txt"):
+        output = open(output_file, "w+")
         if self.states is None:
             print("No se proporcionó un archivo de entrada!")
             return False
@@ -174,10 +175,13 @@ class TuringMachine(object):
 
             # Progress print
             current_progress = ""
-            if not remove_blank_space:
-                print(str(self.current_depth) + ".", current_progress.join(self.operating_characters))
-            else:
-                print(str(self.current_depth) + ".", current_progress.join(self.operating_characters)[0:len(current_progress.join(self.operating_characters)) - 1])
+            output_progress = str(self.current_depth) + "." + " " + current_progress.join(self.operating_characters)
+
+            if remove_blank_space:
+                output_progress = output_progress[0: len(output_progress) - 1]
+
+            print(output_progress)
+            output.write(output_progress + "\n")
 
         if remove_blank_space and self.operating_characters[len(self.operating_characters) - 1] == "_":
             self.operating_characters.pop()
@@ -188,6 +192,5 @@ class TuringMachine(object):
 
         # Generates the output file
         file_output = ""
-        output = open(output_file, "w+")
-        output.write(file_output.join(self.operating_characters))
+        output.write(file_output.join(self.operating_characters) + "\n")
 
