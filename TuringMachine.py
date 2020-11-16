@@ -104,7 +104,7 @@ class TuringMachine(object):
 
         for character in character_string:
             # Appends known characters to self.operating_characters
-            if character in self.accepted_symbols:
+            if character != "_" and character in self.accepted_symbols:
                 self.operating_characters.append(character)
             # Leaves the list empty if there is an unknown symbol
             elif character != "\n":
