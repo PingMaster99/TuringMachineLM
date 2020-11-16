@@ -21,37 +21,18 @@ class TuringMachine(object):
     """
     def __init__(self, input_file):
 
+        # Machine alphabet
+        self.accepted_symbols = []
+
         # Machine states
-        self.states = {
-            "q0": {
-                "a": ["q0", "d", "L"],
-                "b": ["q2", "c", "R"],
-                "c": ["q1", "b", "R"],
-                "d": ["q2", "c", "R"],
-                "_": ["", "", ""]
-                },
-            "q1": {
-                "a": ["q2", "a", "L"],
-                "b": ["q1", "a", "R"],
-                "c": ["q1", "a", "R"],
-                "d": ["qreject", "a", "R"],
-                "_": ["qreject", "a", "R"]
-                },
-            "q2": {
-                "a": ["q1", "a",  "R"],
-                "b": ["q2", "d", "R"],
-                "c": ["qreject", "c", "L"],
-                "d": ["qaccept", "b", "R"],
-                "_": ["qreject", "_", "L"]
-                },
-        }
+        self.states = {}
+        self.build_machine()
 
         # Current state and character
         self.current_state = "q0"
         self.current_character = None
 
         # Accepted symbols and operating characters to calculate
-        self.accepted_symbols = ["a", "b", "c", "d"]
         self.operating_characters = []
         self.generate_operating_characters(input_file)
 
@@ -63,6 +44,35 @@ class TuringMachine(object):
         # Pointers to the location of the state and current character in operating_characters
         self.state_location = 0
         self.character_location = 1
+
+    def build_machine(self, input_file="states.txt"):
+        self.states = {}
+        self.accepted_symbols = []
+        start = True
+        file = open(input_file)
+
+        for line in file.readlines():
+            component_index = 0
+            if start:
+                self.accepted_symbols = line.strip("\n").split(" ")
+                start = False
+                continue
+
+            line = line.strip("\n").split(" ")
+            state = line[0]
+            self.states[state] = {}
+            line.pop(0)
+            line.pop(0)
+            current_component = ""
+            for component in line:
+                if(component_index % len(self.accepted_symbols)) == 0:
+                    current_component = component
+                    self.states[state][component] = []
+                    component_index += 1
+                    continue
+                if component != "":
+                    self.states[state][current_component].append(component)
+                component_index += 1
 
     def generate_operating_characters(self, input_file):
         """
@@ -103,6 +113,9 @@ class TuringMachine(object):
             self.current_character = self.operating_characters[1]
 
     def calculate(self, output_file="output.txt"):
+        if self.states is None:
+            print("No se proporcionó un archivo de entrada!")
+            return False
 
         # Additional blank spaces at the end of the strip
         remove_blank_space = False

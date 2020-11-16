@@ -1,0 +1,4 @@
+a b c d _
+q0  a q0 d L  b q2 c R  c q1 b R  d q2 c R  _ qreject _ L
+q1  a q2 a L  b q1 a R  c q1 a R  d qreject a R  _ qreject a R
+q2  a q1 a R  b q2 d R  c qreject c L  d qaccept b R  _ qreject _ L
