@@ -11,7 +11,7 @@
     Pablo Ruiz 18259    (PingMaster99)
 
     Version 1.0
-    Updated November 15, 2020
+    Updated November 16, 2020
 """
 
 
@@ -52,12 +52,12 @@ class TuringMachine(object):
 
         # Accepted symbols and operating characters to calculate
         self.accepted_symbols = ["a", "b", "c", "d"]
-        #self.accepted_symbols = ["a", "b", "3", "4", "5"]
         self.operating_characters = []
         self.generate_operating_characters(input_file)
 
         # Maximum depth (exits the calculation in case of an infinite loop)
-        self.maximum_depth = 100
+        self.depth_constant = 100
+        self.maximum_depth = self.depth_constant
         self.current_depth = 0
 
         # Pointers to the location of the state and current character in operating_characters
@@ -80,7 +80,7 @@ class TuringMachine(object):
             self.current_character = None
 
             # Maximum depth (exits the calculation in case of an infinite loop)
-            self.maximum_depth = 100
+            self.maximum_depth = self.depth_constant
             self.current_depth = 0
 
             # Pointers to the location of the state and current character in operating_characters

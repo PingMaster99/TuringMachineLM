@@ -1,7 +1,7 @@
 """
     TuringMain.py
 
-    Runs a Turing Machine based off on the input of 3 files
+    Runs a Turing Machine based off the input of 3 files
     It produces 3 output files with an acceptation result, a
     rejection result, and an infinite loop result.
 
@@ -10,7 +10,7 @@
     Pablo Ruiz 18259    (PingMaster99)
 
     Version 1.0
-    Updated November 15, 2020
+    Updated November 16, 2020
 """
 from TuringMachine import *
 
