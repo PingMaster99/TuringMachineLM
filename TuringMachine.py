@@ -1,9 +1,24 @@
+"""
+    TuringMachine.py
+
+    Contains the required functions to run a deterministic
+    Turing Machine.
+
+    Mathematical Logic test # 5
+
+    Isabel Ortiz        (isaonaranjo)
+    Douglas de León     (DouglasDL28)
+    Pablo Ruiz 18259    (PingMaster99)
+
+    Version 1.0
+    Updated November 15, 2020
+"""
+
 class TuringMachine(object):
     """
         This class generates a deterministic Turing Machine
     """
     def __init__(self, input_file):
-        #self.states = ["q0", "q1", "q2", "q3", "q4", "qaccept", "qreject"]
 
         # Machine states
         self.states = {
@@ -53,6 +68,23 @@ class TuringMachine(object):
         to a form legible by the program from the input string
         :param input_file: file that contains the input string
         """
+
+        # If the machine has calculated another file before, it is reset
+        if len(self.operating_characters) > 0:
+            self.operating_characters.clear()
+
+            # Current state and character
+            self.current_state = "q0"
+            self.current_character = None
+
+            # Maximum depth (exits the calculation in case of an infinite loop)
+            self.maximum_depth = 100
+            self.current_depth = 0
+
+            # Pointers to the location of the state and current character in operating_characters
+            self.state_location = 0
+            self.character_location = 1
+
         file = open(input_file)
         character_string = file.readlines()[0]
 
@@ -68,13 +100,13 @@ class TuringMachine(object):
             self.operating_characters.insert(0, self.current_state)
             self.current_character = self.operating_characters[1]
 
-    def calculate(self):
+    def calculate(self, output_file="output.txt"):
 
         # The machine will only calculate if it's not in an acceptation state or a rejection state and the maximum
         # recursion depth has not been reached. It won't calculate if the input string has invalid characters.
         remove_blank_space = False
         while self.current_state != "qaccept" and self.current_state != "qreject" and \
-                (self.maximum_depth >= self.current_depth) and len(self.operating_characters) > 0:
+                (self.maximum_depth > self.current_depth) and len(self.operating_characters) > 0:
 
             operation_list = self.states[self.current_state][self.current_character]
             new_character = operation_list[0]
@@ -119,14 +151,23 @@ class TuringMachine(object):
             # Loop update
             self.current_depth += 1
 
+            # Progress print
+            current_progress = ""
+            if not remove_blank_space:
+                print(str(self.current_depth) + ".", current_progress.join(self.operating_characters))
+            else:
+                print(str(self.current_depth) + ".", current_progress.join(self.operating_characters)[0:len(current_progress.join(self.operating_characters)) - 1])
+
+
         if remove_blank_space and self.operating_characters[len(self.operating_characters) - 1] == "_":
             self.operating_characters.pop()
 
         if self.maximum_depth == self.current_depth:
-            self.operating_characters = ["Infinite loop"]
+            self.operating_characters.append("\n(Infinite loop)")
+            print("Infinite loop")
 
         # Generates the output file
         file_output = ""
-        output = open("output.txt", "w+")
+        output = open(output_file, "w+")
         output.write(file_output.join(self.operating_characters))
 
